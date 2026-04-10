@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabletop Eco Score</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero glass-panel">
+        <p class="eyebrow">Board Game Environmental Impact</p>
+        <h1>Tabletop Eco Score</h1>
+        <p class="hero-copy">
+          Estimate product footprint from materials, packaging, recyclability,
+          durability, replay value, and publisher stewardship.
+        </p>
+        <p class="hero-note">
+          This is a rubric-based estimate, not a full life-cycle carbon
+          analysis.
+        </p>
+      </header>
+
+      <main class="layout">
+        <section class="glass-panel form-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Calculator</p>
+              <h2>Score A Game</h2>
+            </div>
+            <label class="field">
+              <span>Game name</span>
+              <input
+                id="game-name"
+                name="game-name"
+                type="text"
+                placeholder="Example: Wingspan"
+              />
+            </label>
+          </div>
+
+          <div class="section-block">
+            <h3>Base Product Score</h3>
+            <div id="base-fields" class="field-grid"></div>
+          </div>
+
+          <div class="section-block">
+            <h3>Penalties</h3>
+            <div id="penalty-fields" class="field-grid compact-grid"></div>
+          </div>
+
+          <div class="section-block">
+            <h3>Stewardship Modifier</h3>
+            <div id="stewardship-fields" class="field-grid"></div>
+            <div id="verified-fields" class="field-grid compact-grid"></div>
+          </div>
+        </section>
+
+        <aside class="results-column">
+          <section class="glass-panel score-panel">
+            <p class="eyebrow">Result</p>
+            <div class="score-head">
+              <div>
+                <p id="score-game-label" class="score-label">Current game</p>
+                <h2 id="final-score">0</h2>
+              </div>
+              <div id="impact-tier" class="tier-pill heavy">HEAVY</div>
+            </div>
+
+            <div class="summary-grid">
+              <article>
+                <span>Base subtotal</span>
+                <strong id="base-subtotal">0</strong>
+              </article>
+              <article>
+                <span>Penalty total</span>
+                <strong id="penalty-total">0</strong>
+              </article>
+              <article>
+                <span>Disclosure</span>
+                <strong id="disclosure-total">0</strong>
+              </article>
+              <article>
+                <span>Verified actions</span>
+                <strong id="actions-total">0</strong>
+              </article>
+              <article>
+                <span>Stewardship subtotal</span>
+                <strong id="stewardship-total">0</strong>
+              </article>
+              <article>
+                <span>Tier band</span>
+                <strong id="tier-band">Below 40</strong>
+              </article>
+            </div>
+
+            <div class="caps-list">
+              <p id="penalty-cap-note">Penalties capped at -15.</p>
+              <p id="actions-cap-note">Verified actions capped at +5.</p>
+            </div>
+          </section>
+
+          <section class="glass-panel guidance-panel">
+            <p class="eyebrow">Guidance</p>
+            <h2 id="guidance-title">HEAVY</h2>
+            <p id="guidance-description"></p>
+            <div class="guidance-columns">
+              <article>
+                <h3>Consumer</h3>
+                <p id="consumer-guidance"></p>
+              </article>
+              <article>
+                <h3>Publisher</h3>
+                <p id="publisher-guidance"></p>
+              </article>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,351 @@
+:root {
+  color-scheme: light;
+  --bg-top: #f5efe1;
+  --bg-bottom: #dbe7dd;
+  --panel: rgba(255, 252, 245, 0.62);
+  --panel-strong: rgba(255, 252, 245, 0.82);
+  --line: rgba(70, 89, 79, 0.16);
+  --text: #203228;
+  --muted: #5b6d61;
+  --accent: #2f6b4f;
+  --accent-soft: rgba(47, 107, 79, 0.12);
+  --light-tier: #35795a;
+  --modest-tier: #6b7a2e;
+  --considerable-tier: #a56a22;
+  --heavy-tier: #9a3a2f;
+  --shadow: 0 24px 60px rgba(45, 63, 55, 0.12);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Instrument Sans", "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.78), transparent 28%),
+    radial-gradient(circle at 85% 20%, rgba(132, 176, 137, 0.28), transparent 25%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: auto;
+  border-radius: 999px;
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+body::before {
+  top: 5rem;
+  right: 8vw;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+body::after {
+  bottom: 6rem;
+  left: 4vw;
+  width: 14rem;
+  height: 14rem;
+  background: rgba(122, 160, 133, 0.22);
+}
+
+.page-shell {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+.glass-panel {
+  background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+.hero {
+  padding: 2rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border-radius: calc(var(--radius-xl) - 8px);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  pointer-events: none;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  line-height: 0.95;
+  max-width: 10ch;
+}
+
+.hero-copy,
+.hero-note {
+  max-width: 60ch;
+}
+
+.hero-copy {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.hero-note {
+  margin: 0;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.8fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  align-items: start;
+}
+
+.form-panel,
+.score-panel,
+.guidance-panel {
+  padding: 1.4rem;
+}
+
+.results-column {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.panel-heading {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+  margin-bottom: 1.4rem;
+}
+
+.panel-heading h2 {
+  font-size: 1.8rem;
+}
+
+.field-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.compact-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.section-block + .section-block {
+  margin-top: 1.5rem;
+}
+
+.section-block h3 {
+  margin-bottom: 0.8rem;
+  font-size: 1.15rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+input,
+select {
+  width: 100%;
+  appearance: none;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1rem;
+  font: inherit;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% - 3px),
+    calc(100% - 14px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 2.8rem;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: rgba(47, 107, 79, 0.45);
+  box-shadow: 0 0 0 4px rgba(47, 107, 79, 0.12);
+  transform: translateY(-1px);
+}
+
+.field small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.score-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+}
+
+.score-label {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+}
+
+#final-score {
+  font-size: clamp(3.25rem, 9vw, 5rem);
+  line-height: 0.9;
+}
+
+.tier-pill {
+  min-width: 7.5rem;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  color: #fffdf8;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.tier-pill.light {
+  background: var(--light-tier);
+}
+
+.tier-pill.modest {
+  background: var(--modest-tier);
+}
+
+.tier-pill.considerable {
+  background: var(--considerable-tier);
+}
+
+.tier-pill.heavy {
+  background: var(--heavy-tier);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.summary-grid article,
+.guidance-columns article {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 0.95rem 1rem;
+}
+
+.summary-grid span {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.summary-grid strong {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.25rem;
+}
+
+.caps-list {
+  margin-top: 1rem;
+  color: var(--muted);
+}
+
+.caps-list p {
+  margin: 0.35rem 0 0;
+}
+
+.guidance-panel p {
+  line-height: 1.6;
+}
+
+.guidance-columns {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-heading {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    width: min(100% - 1rem, 100%);
+    padding: 0.75rem 0 1.5rem;
+  }
+
+  .hero,
+  .form-panel,
+  .score-panel,
+  .guidance-panel {
+    padding: 1rem;
+    border-radius: 22px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .score-head {
+    flex-direction: column;
+  }
+}
