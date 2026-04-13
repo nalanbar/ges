@@ -25,11 +25,11 @@ const rubric = {
       label: "2. End-of-Life Material Mix",
       max: 10,
       options: [
-        { points: 10, label: "Almost all components single-material and widely recyclable (uncoated cardboard, standard paper, untreated wood)" },
-        { points: 7, label: "Mostly recyclable; some coated cards or light composite materials" },
-        { points: 4, label: "Significant mixed materials; laminates, foil, mixed plastics that complicate recycling" },
-        { points: 2, label: "Dominated by hard-to-recycle composites, fused multi-material components" },
-        { points: 0, label: "Largely non-recyclable; bonded mixed materials, non-standard plastics with no recycling stream" },
+        { points: 10, label: "Predominantly paper, cardboard, or wood with minimal additives or coatings; components are mostly mono-material and designed for easy recovery or low persistence in waste streams" },
+        { points: 7, label: "Mostly paper/cardboard/wood; some coated or composite elements that reduce recovery potential" },
+        { points: 4, label: "Significant mixed materials, laminates, foils, or moderate plastic components (inserts, bags, light minis) that are likely to end up in landfill or as persistent waste" },
+        { points: 2, label: "Heavy reliance on plastic components (minis, trays, etc.) with no practical recovery pathway in most regions" },
+        { points: 0, label: "Dominated by mixed or bonded plastics, non-recyclable composites, or materials that are effectively landfill-bound or persistent regardless of sorting efforts" },
       ],
     },
     {
