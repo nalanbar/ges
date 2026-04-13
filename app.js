@@ -138,7 +138,16 @@ function getWeightInGrams() {
   }
 
   const unit = document.getElementById("weightUnit").value;
-  return unit === "kg" ? numeric * 1000 : numeric;
+  switch (unit) {
+    case "kg":
+      return numeric * 1000;
+    case "oz":
+      return numeric * 28.349523125;
+    case "lb":
+      return numeric * 453.59237;
+    default:
+      return numeric;
+  }
 }
 
 function getWeightScore(weightGrams) {

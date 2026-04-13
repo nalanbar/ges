@@ -7,6 +7,8 @@ const rubric = {
     units: [
       { value: "g", label: "Grams" },
       { value: "kg", label: "Kilograms" },
+      { value: "oz", label: "Ounces" },
+      { value: "lb", label: "Pounds" },
     ],
     brackets: [
       { min: 0, max: 300, points: 30, label: "Under 300g" },
