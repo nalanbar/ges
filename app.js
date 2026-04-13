@@ -59,7 +59,7 @@ function makeSelect({ options, id, placeholder }) {
   options.forEach((option, index) => {
     const element = document.createElement("option");
     element.value = String(option.points);
-    element.textContent = `${formatPoints(option.points)} — ${option.label}`;
+    element.textContent = `${formatPoints(option.points)}: ${option.label}`;
     if (!placeholder && index === 0) {
       element.selected = true;
     }
@@ -77,11 +77,11 @@ function makeBinarySelect({ id, yesLabel, points }) {
 
   [
     { points: 0, label: "No" },
-    { points, label: `Yes — ${yesLabel}` },
+    { points, label: `Yes: ${yesLabel}` },
   ].forEach((option) => {
     const element = document.createElement("option");
     element.value = String(option.points);
-    element.textContent = option.points === 0 ? option.label : `${formatPoints(option.points)} — ${option.label}`;
+    element.textContent = option.points === 0 ? option.label : `${formatPoints(option.points)}: ${option.label}`;
     select.append(element);
   });
 
@@ -381,7 +381,7 @@ function buildGapSummary(weightScore, weightGrams) {
 
 function buildExplanation({ tier, weightScore, weightGrams, disclosure, verifiedActionsTotal }) {
   const primaryGap = buildGapSummary(weightScore, weightGrams);
-  const sentences = [`${tier.label} — primarily driven by ${primaryGap.summary}.`];
+  const sentences = [`${tier.label}: primarily driven by ${primaryGap.summary}.`];
 
   const largestPenalty = getLargestPenalty();
   if (largestPenalty) {

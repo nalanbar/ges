@@ -48,7 +48,7 @@ const rubric = {
       label: "4. Packaging Efficiency",
       max: 10,
       options: [
-        { points: 10, label: "Small or modest box, tightly packed, minimal air — box sized to contents" },
+        { points: 10, label: "Small or modest box, tightly packed, minimal air: box sized to contents" },
         { points: 8, label: "Efficient use of space; box matches contents well" },
         { points: 5, label: "Standard box with moderate wasted space" },
         { points: 2, label: "Oversized box for shelf presence or marketing; significant empty volume" },
@@ -86,7 +86,7 @@ const rubric = {
       options: [
         { points: 7, label: "Manufactured in same country as primary market" },
         { points: 5, label: "Manufactured on same continent as primary market" },
-        { points: 2, label: "Manufactured overseas (industry default — container shipping)" },
+        { points: 2, label: "Manufactured overseas (industry default: container shipping)" },
         { points: 0, label: "Manufacturing location unknown / undisclosed" },
       ],
     },
@@ -102,7 +102,7 @@ const rubric = {
     id: "disclosure",
     label: "Disclosure / Transparency",
     options: [
-      { points: 8, label: "Detailed public product-specific disclosure — materials, weight, sources, manufacturing location per game" },
+      { points: 8, label: "Detailed public product-specific disclosure: materials, weight, sources, manufacturing location per game" },
       { points: 5, label: "Company-level sustainability commitments with some product-specific detail" },
       { points: 2, label: "Public statement beyond marketing; real but vague sustainability claims" },
       { points: -3, label: "No meaningful public disclosure" },
