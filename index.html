@@ -25,6 +25,9 @@
           This is a rubric-based estimate, not a full life-cycle carbon
           analysis.
         </p>
+        <p class="hero-note">
+          Reference: <a href="https://gamelab-lausanne.ch/the-environmental-impact-of-video-and-board-games/" target="_blank" rel="noreferrer">The environmental impact of video and board games</a>.
+        </p>
       </header>
 
       <main class="layout">
@@ -34,15 +37,27 @@
               <p class="eyebrow">Calculator</p>
               <h2>Score A Game</h2>
             </div>
-            <label class="field">
-              <span>Game name</span>
-              <input
-                id="game-name"
-                name="game-name"
-                type="text"
-                placeholder="Example: Wingspan"
-              />
-            </label>
+            <div class="field-stack">
+              <label class="field">
+                <span>Game name</span>
+                <input
+                  id="game-name"
+                  name="game-name"
+                  type="text"
+                  placeholder="Example: Wingspan"
+                />
+              </label>
+              <label class="field">
+                <span>BGG game ID</span>
+                <input
+                  id="bgg-id"
+                  name="bgg-id"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder="Optional: 266192"
+                />
+              </label>
+            </div>
           </div>
 
           <div class="section-block">
@@ -59,6 +74,7 @@
             <h3>Stewardship Modifier</h3>
             <div id="stewardship-fields" class="field-grid"></div>
             <div id="verified-fields" class="field-grid compact-grid"></div>
+            <p id="actions-gate-note" class="inline-note"></p>
           </div>
         </section>
 
@@ -96,14 +112,33 @@
               </article>
               <article>
                 <span>Tier band</span>
-                <strong id="tier-band">Below 40</strong>
+                <strong id="tier-band">Below 32</strong>
               </article>
             </div>
 
             <div class="caps-list">
-              <p id="penalty-cap-note">Penalties capped at -15.</p>
-              <p id="actions-cap-note">Verified actions capped at +5.</p>
+              <p id="penalty-cap-note">Penalties capped at -10.</p>
+              <p id="actions-cap-note">Verified actions capped at +10.</p>
             </div>
+          </section>
+
+          <section class="glass-panel guidance-panel">
+            <p class="eyebrow">Explanation</p>
+            <p id="score-explanation"></p>
+          </section>
+
+          <section class="glass-panel guidance-panel">
+            <div class="export-head">
+              <div>
+                <p class="eyebrow">BGG Export</p>
+                <h2>Copy For BoardGameGeek</h2>
+              </div>
+              <button id="copy-bgg" class="action-button" type="button">Copy BGG Export</button>
+            </div>
+            <p class="hero-note">
+              Generates BGG forum formatting, not standard Markdown.
+            </p>
+            <textarea id="bgg-export" class="export-output" readonly></textarea>
           </section>
 
           <section class="glass-panel guidance-panel">
@@ -125,6 +160,7 @@
       </main>
     </div>
 
+    <script src="rubric.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

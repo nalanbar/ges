@@ -1,169 +1,6 @@
-const rubric = {
-  baseCriteria: [
-    {
-      id: "materialsFunctional",
-      label: "1. Materials — Functional Components",
-      max: 25,
-      options: [
-        { points: 25, label: "Almost entirely paper/cardboard, no plastic components" },
-        { points: 20, label: "Paper/cardboard plus wood components (meeples, tokens)" },
-        { points: 15, label: "Mostly paper/cardboard with some functional plastic (dice, standees, durable pieces)" },
-        { points: 10, label: "Mixed materials; noticeable plastic pieces serving gameplay function" },
-        { points: 5, label: "Heavily plastic components (miniatures, custom trays integral to play)" },
-        { points: 0, label: "Overwhelmingly plastic; miniature-heavy or injection-molded throughout" },
-      ],
-    },
-    {
-      id: "materialsPackaging",
-      label: "1b. Materials — Non-Functional / Packaging Plastic",
-      max: 10,
-      options: [
-        { points: 10, label: "No plastic insert, no shrink wrap, no plastic bags — paper/cardboard organization only" },
-        { points: 7, label: "Minimal plastic: biodegradable bags or one small functional plastic tray" },
-        { points: 4, label: "Standard plastic insert or vacuum tray, some plastic bags" },
-        { points: 2, label: "Oversized plastic insert, excessive bagging, non-functional plastic" },
-        { points: 0, label: "Massive vacuum-form tray, blister packs, heavy disposable plastic throughout" },
-      ],
-    },
-    {
-      id: "packagingEfficiency",
-      label: "2. Packaging Efficiency",
-      max: 15,
-      options: [
-        { points: 15, label: "Small or modest box, tightly packed, minimal air — box sized to contents" },
-        { points: 12, label: "Efficient use of space; box matches contents well" },
-        { points: 8, label: "Standard box with moderate wasted space" },
-        { points: 4, label: "Oversized box for shelf presence or marketing; significant empty volume" },
-        { points: 0, label: "Enormous box mostly transporting air and stretch goal regret" },
-      ],
-    },
-    {
-      id: "separability",
-      label: "3. Separability / Recyclability",
-      max: 15,
-      options: [
-        { points: 15, label: "Components easily sorted into single-material streams in <5 min; uncoated cardboard, standard card stock" },
-        { points: 12, label: "Mostly separable; minor mixed materials (e.g. linen-finish cards, light coatings)" },
-        { points: 8, label: "Some hard-to-separate materials; coated cards, foil elements, mixed inserts" },
-        { points: 4, label: "Significant mixed materials; laminated boards, metal + plastic fused components" },
-        { points: 0, label: "Effectively non-separable; heavily bonded mixed materials throughout" },
-      ],
-    },
-    {
-      id: "durability",
-      label: "4. Durability / Lifespan",
-      max: 15,
-      options: [
-        { points: 15, label: "Very durable; likely decades of play. Standard-sleeved cards, solid boards, replacement parts available" },
-        { points: 12, label: "Strong longevity; good component quality, sleeve-compatible cards" },
-        { points: 8, label: "Moderate wear expected; odd card sizes (hard to sleeve), thin cardboard" },
-        { points: 4, label: "Components likely to wear, chip, delaminate, or need replacement quickly" },
-        { points: 0, label: "Fragile or quasi-disposable; legacy/destructible components" },
-      ],
-    },
-    {
-      id: "playValue",
-      label: "5. Play Value per Footprint",
-      max: 15,
-      options: [
-        { points: 15, label: "Extremely high replay per unit of material — small footprint, hundreds of plays" },
-        { points: 12, label: "Strong replayability or large campaign per footprint (e.g. LCG core, big campaign)" },
-        { points: 8, label: "Decent but finite replay; moderate box, moderate variety" },
-        { points: 4, label: "Limited replayability relative to physical size" },
-        { points: 0, label: "Mostly novelty or one-shot; huge footprint, minimal replay value" },
-      ],
-    },
-    {
-      id: "supplyChain",
-      label: "6. Supply Chain / Geography",
-      max: 5,
-      options: [
-        { points: 5, label: "Manufactured in same country as primary market" },
-        { points: 3, label: "Manufactured on same continent as primary market" },
-        { points: 1, label: "Manufactured overseas (industry default — container shipping)" },
-        { points: 0, label: "Manufacturing location unknown / undisclosed" },
-      ],
-    },
-  ],
-  penalties: [
-    { id: "shrinkWrap", points: -5, label: "Excessive shrink wrap / plastic overwrap beyond industry standard" },
-    { id: "oversizedInsert", points: -5, label: "Non-functional oversized insert (box filler, not organizer)" },
-    { id: "foilFinish", points: -5, label: "Foil, laminate, or hard-to-recycle finish on many components" },
-    { id: "miniHeavy", points: -10, label: "Mini-heavy production where cardboard/wood alternatives were plausible" },
-    { id: "collectorBloat", points: -5, label: "Obvious collector bloat packaging" },
-    { id: "oddCardSizes", points: -3, label: "Non-standard card sizes preventing sleeving" },
-  ],
-  disclosure: {
-    id: "disclosure",
-    label: "Disclosure / Transparency",
-    options: [
-      { points: 10, label: "Detailed public product-specific disclosure: materials, sources, manufacturing locations per game" },
-      { points: 7, label: "Company-level sustainability commitments with some product-specific detail" },
-      { points: 3, label: "Public statement beyond marketing; real but vague sustainability claims" },
-      { points: 0, label: "No meaningful public disclosure" },
-      { points: -5, label: "Greenwashed fluff; unverifiable claims, marketing language only" },
-      { points: -10, label: "Deceptive claims contradicted by obvious product choices" },
-    ],
-  },
-  verifiedActions: [
-    { id: "recycledMaterials", points: 2, label: "Verified recycled or FSC-certified materials" },
-    { id: "plasticFreePackaging", points: 2, label: "No shrink wrap / plastic-free packaging initiative" },
-    { id: "regionalManufacturing", points: 2, label: "Regional manufacturing strategy (same continent or closer)" },
-    { id: "carbonAccounting", points: 2, label: "Carbon accounting or product-level emissions tracking" },
-    {
-      id: "offsetProgram",
-      label: "Credible offset program",
-      options: [
-        { points: 0, label: "Not applied" },
-        { points: 1, label: "+1" },
-        { points: 2, label: "+2" },
-        { points: 3, label: "+3" },
-      ],
-      note: "Requires disclosure score of at least +3.",
-    },
-  ],
-  tiers: [
-    {
-      id: "light",
-      label: "LIGHT",
-      min: 80,
-      band: "80+",
-      description: "Low environmental cost, high efficiency.",
-      consumer: "No special considerations. Enjoy your efficient hobby.",
-      publisher: "Share your practices openly to raise the bar for the industry.",
-    },
-    {
-      id: "modest",
-      label: "MODEST",
-      min: 60,
-      band: "60–79",
-      description: "Reasonable footprint with room for mindful ownership.",
-      consumer: "Prioritize play over accumulation. Sleeve cards to extend lifespan. Sell or gift games you no longer use.",
-      publisher: "Examine non-functional plastic and packaging. Small material changes move the needle at this level.",
-    },
-    {
-      id: "considerable",
-      label: "CONSIDERABLE",
-      min: 40,
-      band: "40–59",
-      description: "Meaningful footprint that benefits from committed use.",
-      consumer: "Commit to regular play to justify the footprint. Share or lend rather than shelf-sitting. Recycle packaging carefully.",
-      publisher: "Evaluate material substitutions. Publish sustainability disclosures if you have not. This tier is where transparency earns the most trust.",
-    },
-    {
-      id: "heavy",
-      label: "HEAVY",
-      min: -Infinity,
-      band: "Below 40",
-      description: "Resource-intensive product. Ownership carries real environmental weight.",
-      consumer: "This is an environmental investment. Earn it through long-term use, community sharing, or lighter choices elsewhere in your collection.",
-      publisher: "Your product is inherently material-intensive, so stewardship matters more, not less. Carbon reporting, recycled materials, and take-back programs are how you earn trust here.",
-    },
-  ],
-};
-
 const nodes = {
   gameName: document.querySelector("#game-name"),
+  bggId: document.querySelector("#bgg-id"),
   baseFields: document.querySelector("#base-fields"),
   penaltyFields: document.querySelector("#penalty-fields"),
   stewardshipFields: document.querySelector("#stewardship-fields"),
@@ -183,6 +20,10 @@ const nodes = {
   publisherGuidance: document.querySelector("#publisher-guidance"),
   penaltyCapNote: document.querySelector("#penalty-cap-note"),
   actionsCapNote: document.querySelector("#actions-cap-note"),
+  actionsGateNote: document.querySelector("#actions-gate-note"),
+  scoreExplanation: document.querySelector("#score-explanation"),
+  bggExport: document.querySelector("#bgg-export"),
+  copyBgg: document.querySelector("#copy-bgg"),
 };
 
 function makeField({ label, input, note }) {
@@ -217,7 +58,7 @@ function makeSelect({ options, id, placeholder }) {
 
   options.forEach((option, index) => {
     const element = document.createElement("option");
-    element.value = option.points;
+    element.value = String(option.points);
     element.textContent = `${formatPoints(option.points)} — ${option.label}`;
     if (!placeholder && index === 0) {
       element.selected = true;
@@ -239,13 +80,41 @@ function makeBinarySelect({ id, yesLabel, points }) {
     { points, label: `Yes — ${yesLabel}` },
   ].forEach((option) => {
     const element = document.createElement("option");
-    element.value = option.points;
+    element.value = String(option.points);
     element.textContent = option.points === 0 ? option.label : `${formatPoints(option.points)} — ${option.label}`;
     select.append(element);
   });
 
   select.addEventListener("change", updateScore);
   return select;
+}
+
+function makeWeightControls() {
+  const group = document.createElement("div");
+  group.className = "weight-input-group";
+
+  const input = document.createElement("input");
+  input.id = rubric.weight.id;
+  input.name = rubric.weight.id;
+  input.type = "number";
+  input.min = "0";
+  input.step = "0.01";
+  input.placeholder = "Enter weight";
+  input.addEventListener("input", updateScore);
+
+  const unit = document.createElement("select");
+  unit.id = "weightUnit";
+  unit.name = "weightUnit";
+  rubric.weight.units.forEach((item) => {
+    const option = document.createElement("option");
+    option.value = item.value;
+    option.textContent = item.label;
+    unit.append(option);
+  });
+  unit.addEventListener("change", updateScore);
+
+  group.append(input, unit);
+  return group;
 }
 
 function formatPoints(value) {
@@ -257,7 +126,91 @@ function readNumber(id) {
   return value === "" ? 0 : Number(value);
 }
 
+function getWeightInGrams() {
+  const raw = document.getElementById(rubric.weight.id).value;
+  if (raw === "") {
+    return null;
+  }
+
+  const numeric = Number(raw);
+  if (!Number.isFinite(numeric) || numeric < 0) {
+    return null;
+  }
+
+  const unit = document.getElementById("weightUnit").value;
+  return unit === "kg" ? numeric * 1000 : numeric;
+}
+
+function getWeightScore(weightGrams) {
+  if (weightGrams === null) {
+    return 0;
+  }
+
+  return rubric.weight.brackets.find((bracket) => weightGrams >= bracket.min && weightGrams < bracket.max);
+}
+
+function formatWeight(weightGrams) {
+  if (weightGrams === null) {
+    return "weight not entered";
+  }
+
+  if (weightGrams >= 1000) {
+    return `${(weightGrams / 1000).toFixed(1).replace(/\.0$/, "")} kg`;
+  }
+
+  return `${Math.round(weightGrams)}g`;
+}
+
+function summarizeCategory(criterion, points) {
+  switch (criterion.id) {
+    case "materialMix":
+      if (points >= 10) return "highly recyclable materials";
+      if (points >= 7) return "mostly recyclable materials";
+      if (points >= 4) return "limited recyclability due to mixed laminated components";
+      if (points >= 2) return "hard-to-recycle composite materials";
+      return "largely non-recyclable mixed materials";
+    case "packagingPlastic":
+      if (points >= 5) return "plastic-free packaging";
+      if (points >= 3) return "minimal packaging plastic";
+      if (points >= 1) return "standard single-use plastic packaging";
+      return "heavy disposable plastic packaging";
+    case "packagingEfficiency":
+      if (points >= 10) return "tight packaging efficiency";
+      if (points >= 8) return "efficient packaging";
+      if (points >= 5) return "moderate wasted box space";
+      if (points >= 2) return "oversized packaging";
+      return "extremely oversized packaging";
+    case "durability":
+      if (points >= 10) return "very durable components";
+      if (points >= 8) return "strong component longevity";
+      if (points >= 5) return "moderate wear risk";
+      if (points >= 2) return "short component lifespan";
+      return "fragile or quasi-disposable components";
+    case "expectedUse":
+      if (points >= 10) return "very high expected play intensity";
+      if (points >= 8) return "strong expected long-term use";
+      if (points >= 5) return "moderate expected use";
+      if (points >= 2) return "limited expected use";
+      return "minimal replay value";
+    case "supplyChain":
+      if (points >= 7) return "local manufacturing";
+      if (points >= 5) return "regional manufacturing";
+      if (points >= 2) return "overseas manufacturing";
+      return "undisclosed manufacturing location";
+    default:
+      return criterion.label.toLowerCase();
+  }
+}
+
 function renderForm() {
+  nodes.baseFields.append(
+    makeField({
+      label: `${rubric.weight.label} (/${rubric.weight.max})`,
+      input: makeWeightControls(),
+      note: rubric.weight.help,
+    })
+  );
+
   rubric.baseCriteria.forEach((criterion) => {
     nodes.baseFields.append(
       makeField({
@@ -273,25 +226,11 @@ function renderForm() {
 
   nodes.stewardshipFields.append(
     makeField({
-      label: `${rubric.disclosure.label} (-10 to +10)`,
+      label: `${rubric.disclosure.label}`,
       input: makeSelect({
         id: rubric.disclosure.id,
         options: rubric.disclosure.options,
-        placeholder: "Select a disclosure rating",
       }),
-    })
-  );
-
-  const silenceDefault = makeBinarySelect({
-    id: "silenceDefault",
-    yesLabel: "Apply silence default for no disclosure",
-    points: -5,
-  });
-  nodes.stewardshipFields.append(
-    makeField({
-      label: "Silence default rule",
-      input: silenceDefault,
-      note: "Use this only when you want to enforce the workbook note: if there is no disclosure, silence costs something.",
     })
   );
 
@@ -314,7 +253,6 @@ function renderForm() {
         makeField({
           label: action.label,
           input: makeSelect({ id: action.id, options: action.options }),
-          note: action.note,
         })
       );
       return;
@@ -333,43 +271,288 @@ function renderForm() {
   });
 
   nodes.gameName.addEventListener("input", updateScore);
+  nodes.bggId.addEventListener("input", updateScore);
 }
 
 function getTier(score) {
   return rubric.tiers.find((tier) => score >= tier.min);
 }
 
-function updateScore() {
-  const baseSubtotal = rubric.baseCriteria.reduce((sum, criterion) => sum + readNumber(criterion.id), 0);
-  const penaltyRaw = rubric.penalties.reduce((sum, penalty) => sum + readNumber(penalty.id), 0);
-  const penaltyTotal = Math.max(penaltyRaw, -15);
+function getLargestPenalty() {
+  const applied = rubric.penalties
+    .map((penalty) => ({ ...penalty, applied: readNumber(penalty.id) }))
+    .filter((penalty) => penalty.applied < 0);
 
-  const disclosure = readNumber(rubric.disclosure.id);
-  const silenceDefault = disclosure === 0 ? readNumber("silenceDefault") : 0;
-
-  let offsetProgram = readNumber("offsetProgram");
-  if (disclosure < 3 && offsetProgram > 0) {
-    offsetProgram = 0;
-    document.getElementById("offsetProgram").value = "0";
+  if (applied.length === 0) {
+    return null;
   }
 
-  const actionsRaw = rubric.verifiedActions
-    .filter((action) => action.id !== "offsetProgram")
-    .reduce((sum, action) => sum + readNumber(action.id), 0) + offsetProgram;
-  const actionsTotal = Math.min(actionsRaw, 5);
+  return applied.reduce((largest, current) => (current.points < largest.points ? current : largest));
+}
 
-  const disclosureTotal = disclosure + silenceDefault;
-  const stewardshipTotal = disclosureTotal + actionsTotal;
-  const finalScore = baseSubtotal + penaltyTotal + stewardshipTotal;
+function getLargestPositiveModifier(disclosure, verifiedActionsTotal) {
+  const candidates = [];
+
+  if (disclosure > 0) {
+    candidates.push({
+      points: disclosure,
+      sentence: "Publisher disclosure provides a meaningful positive modifier.",
+    });
+  }
+
+  const actionValues = rubric.verifiedActions.map((action) => {
+    if (action.id === "offsetProgram") {
+      return {
+        label: action.label,
+        points: readNumber(action.id),
+      };
+    }
+
+    return {
+      label: action.label,
+      points: readNumber(action.id),
+    };
+  });
+
+  const positiveAction = actionValues.reduce((largest, current) => {
+    if (!largest || current.points > largest.points) {
+      return current;
+    }
+    return largest;
+  }, null);
+
+  if (positiveAction && positiveAction.points > 0 && verifiedActionsTotal > 0) {
+    candidates.push({
+      points: positiveAction.points,
+      sentence: `${positiveAction.label} provides a modest additional offset.`,
+    });
+  }
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  return candidates.reduce((largest, current) => (current.points > largest.points ? current : largest));
+}
+
+function buildGapSummary(weightScore, weightGrams) {
+  const scoredCategories = [
+    {
+      label: "total weight",
+      max: rubric.weight.max,
+      score: weightScore.points,
+      summary:
+        weightGrams === null
+          ? "missing total weight"
+          : weightScore.points >= 24
+            ? `low total weight (${formatWeight(weightGrams)})`
+            : weightScore.points >= 12
+              ? `moderate total weight (${formatWeight(weightGrams)})`
+              : `high total weight (${formatWeight(weightGrams)})`,
+    },
+    ...rubric.baseCriteria.map((criterion) => {
+      const selectedPoints = readNumber(criterion.id);
+      return {
+        label: criterion.label,
+        max: criterion.max,
+        score: selectedPoints,
+        summary: summarizeCategory(criterion, selectedPoints),
+      };
+    }),
+  ];
+
+  return scoredCategories.reduce((largestGap, current) => {
+    const currentGap = current.max - current.score;
+    if (!largestGap || currentGap > largestGap.gap) {
+      return { ...current, gap: currentGap };
+    }
+    return largestGap;
+  }, null);
+}
+
+function buildExplanation({ tier, weightScore, weightGrams, disclosure, verifiedActionsTotal }) {
+  const primaryGap = buildGapSummary(weightScore, weightGrams);
+  const sentences = [`${tier.label} — primarily driven by ${primaryGap.summary}.`];
+
+  const largestPenalty = getLargestPenalty();
+  if (largestPenalty) {
+    sentences.push(`${largestPenalty.label} reduces the score further.`);
+  }
+
+  if (disclosure < rubric.verifiedActionsGate) {
+    sentences.push("No verified sustainability actions due to lack of publisher disclosure.");
+    return sentences.join(" ");
+  }
+
+  const positiveModifier = getLargestPositiveModifier(disclosure, verifiedActionsTotal);
+  if (positiveModifier) {
+    sentences.push(positiveModifier.sentence);
+  }
+
+  return sentences.join(" ");
+}
+
+function getAppliedPenalties() {
+  return rubric.penalties.filter((penalty) => readNumber(penalty.id) < 0);
+}
+
+function getVerifiedActionsSummary(disclosure) {
+  if (disclosure < rubric.verifiedActionsGate) {
+    return {
+      lines: ["No verified sustainability actions due to disclosure below +2."],
+    };
+  }
+
+  const lines = [];
+  let raw = 0;
+
+  rubric.verifiedActions.forEach((action) => {
+    const value = readNumber(action.id);
+    if (value <= 0) {
+      return;
+    }
+
+    raw += value;
+    lines.push(`${action.label}: ${formatPoints(value)}`);
+  });
+
+  if (lines.length === 0) {
+    lines.push("No verified sustainability actions applied.");
+  }
+
+  return { lines };
+}
+
+function buildThingTag(gameName, bggId) {
+  if (!bggId) {
+    return gameName || "Untitled game";
+  }
+
+  return gameName ? `[thing=${bggId}]${gameName}[/thing]` : `[thing=${bggId}][/thing]`;
+}
+
+function buildBggExport({
+  gameName,
+  bggId,
+  finalScore,
+  tier,
+  baseSubtotal,
+  penaltyTotal,
+  penaltyRaw,
+  disclosure,
+  verifiedActionsTotal,
+  actionsRaw,
+  stewardshipTotal,
+  weightScore,
+  weightGrams,
+  explanation,
+}) {
+  const title = buildThingTag(gameName, bggId);
+  const penalties = getAppliedPenalties();
+  const verifiedSummary = getVerifiedActionsSummary(disclosure);
+
+  const baseLines = [
+    `[*]Total Game Weight: ${weightScore.points}/${rubric.weight.max} (${formatWeight(weightGrams)})`,
+    ...rubric.baseCriteria.map((criterion) => `[*]${criterion.label}: ${readNumber(criterion.id)}/${criterion.max}`),
+  ];
+
+  const penaltyLines =
+    penalties.length > 0
+      ? penalties.map((penalty) => `[*]${penalty.label}: ${penalty.points}`)
+      : ["[*]None"];
+
+  const stewardshipLines = [
+    `[*]Disclosure / Transparency: ${formatPoints(disclosure)}`,
+    ...verifiedSummary.lines.map((line) => `[*]${line}`),
+    `[*]Verified actions total: ${formatPoints(verifiedActionsTotal)}`,
+  ];
+
+  const notes = [
+    `[b]Explanation[/b]`,
+    explanation,
+  ];
+
+  if (penaltyRaw < rubric.penaltyCap) {
+    notes.push(`Penalty cap applied: raw penalties ${penaltyRaw}, capped to ${rubric.penaltyCap}.`);
+  }
+
+  if (actionsRaw > rubric.verifiedActionsCap) {
+    notes.push(`Verified actions cap applied: raw verified actions +${actionsRaw}, capped to +${rubric.verifiedActionsCap}.`);
+  }
+
+  return [
+    `[b]Tabletop Eco Score[/b]`,
+    ``,
+    `Game: ${title}`,
+    `Final Score: [b]${finalScore}[/b]`,
+    `Impact Tier: [b]${tier.label}[/b] (${tier.band})`,
+    ``,
+    `[b]Base Product Score[/b]`,
+    `[list]`,
+    ...baseLines,
+    `[*]Base subtotal: ${baseSubtotal}/82`,
+    `[/list]`,
+    ``,
+    `[b]Penalties[/b]`,
+    `[list]`,
+    ...penaltyLines,
+    `[*]Penalty total: ${penaltyTotal}`,
+    `[/list]`,
+    ``,
+    `[b]Stewardship[/b]`,
+    `[list]`,
+    ...stewardshipLines,
+    `[*]Stewardship subtotal: ${formatPoints(stewardshipTotal)}`,
+    `[/list]`,
+    ``,
+    ...notes,
+  ].join("\n");
+}
+
+function updateScore() {
+  const weightGrams = getWeightInGrams();
+  const weightScore = getWeightScore(weightGrams) || { points: 0, label: "No weight entered" };
+
+  const baseSubtotal =
+    weightScore.points +
+    rubric.baseCriteria.reduce((sum, criterion) => sum + readNumber(criterion.id), 0);
+
+  const penaltyRaw = rubric.penalties.reduce((sum, penalty) => sum + readNumber(penalty.id), 0);
+  const penaltyTotal = Math.max(penaltyRaw, rubric.penaltyCap);
+
+  const disclosure = readNumber(rubric.disclosure.id);
+  const verifiedAllowed = disclosure >= rubric.verifiedActionsGate;
+
+  if (!verifiedAllowed) {
+    rubric.verifiedActions.forEach((action) => {
+      document.getElementById(action.id).value = "0";
+    });
+  }
+
+  const actionsRaw = verifiedAllowed
+    ? rubric.verifiedActions.reduce((sum, action) => sum + readNumber(action.id), 0)
+    : 0;
+  const verifiedActionsTotal = Math.min(actionsRaw, rubric.verifiedActionsCap);
+
+  const stewardshipTotal = disclosure + verifiedActionsTotal;
+  const finalScore = baseSubtotal + penaltyTotal + disclosure + verifiedActionsTotal;
   const tier = getTier(finalScore);
   const gameName = nodes.gameName.value.trim() || "Current game";
+  const bggId = nodes.bggId.value.trim();
+  const explanation = buildExplanation({
+    tier,
+    weightScore,
+    weightGrams,
+    disclosure,
+    verifiedActionsTotal,
+  });
 
   nodes.scoreGameLabel.textContent = gameName;
   nodes.finalScore.textContent = `${finalScore}`;
   nodes.baseSubtotal.textContent = `${baseSubtotal}`;
   nodes.penaltyTotal.textContent = `${penaltyTotal}`;
-  nodes.disclosureTotal.textContent = `${disclosureTotal}`;
-  nodes.actionsTotal.textContent = `${actionsTotal}`;
+  nodes.disclosureTotal.textContent = `${disclosure}`;
+  nodes.actionsTotal.textContent = `${verifiedActionsTotal}`;
   nodes.stewardshipTotal.textContent = `${stewardshipTotal}`;
   nodes.tierBand.textContent = tier.band;
 
@@ -379,12 +562,60 @@ function updateScore() {
   nodes.guidanceDescription.textContent = tier.description;
   nodes.consumerGuidance.textContent = tier.consumer;
   nodes.publisherGuidance.textContent = tier.publisher;
+  nodes.scoreExplanation.textContent = explanation;
 
   nodes.penaltyCapNote.textContent =
-    penaltyRaw < -15 ? `Penalties capped at -15. Raw total was ${penaltyRaw}.` : "Penalties capped at -15.";
+    penaltyRaw < rubric.penaltyCap
+      ? `Penalties capped at ${rubric.penaltyCap}. Raw total was ${penaltyRaw}.`
+      : `Penalties capped at ${rubric.penaltyCap}.`;
+
   nodes.actionsCapNote.textContent =
-    actionsRaw > 5 ? `Verified actions capped at +5. Raw total was +${actionsRaw}.` : "Verified actions capped at +5.";
+    actionsRaw > rubric.verifiedActionsCap
+      ? `Verified actions capped at +${rubric.verifiedActionsCap}. Raw total was +${actionsRaw}.`
+      : `Verified actions capped at +${rubric.verifiedActionsCap}.`;
+
+  nodes.actionsGateNote.textContent = verifiedAllowed
+    ? ""
+    : "Verified actions require a disclosure score of at least +2. Publishers must show their work before earning extra credit.";
+
+  nodes.bggExport.value = buildBggExport({
+    gameName,
+    bggId,
+    finalScore,
+    tier,
+    baseSubtotal,
+    penaltyTotal,
+    penaltyRaw,
+    disclosure,
+    verifiedActionsTotal,
+    actionsRaw,
+    stewardshipTotal,
+    weightScore,
+    weightGrams,
+    explanation,
+  });
+}
+
+async function copyBggExport() {
+  const text = nodes.bggExport.value;
+  if (!text) {
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(text);
+    nodes.copyBgg.textContent = "Copied";
+  } catch {
+    nodes.bggExport.focus();
+    nodes.bggExport.select();
+    nodes.copyBgg.textContent = "Select text to copy";
+  }
+
+  window.setTimeout(() => {
+    nodes.copyBgg.textContent = "Copy BGG Export";
+  }, 1600);
 }
 
 renderForm();
 updateScore();
+nodes.copyBgg.addEventListener("click", copyBggExport);

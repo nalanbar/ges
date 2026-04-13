@@ -1,12 +1,13 @@
 # Tabletop Eco Score
 
-Static GitHub Pages calculator for the board game environmental impact rubric in `tabletop_eco_score_v03.xlsx`.
+Static GitHub Pages calculator for a board game environmental impact rubric.
 
 ## Local structure
 
 - `index.html`: page shell and calculator layout
 - `styles.css`: visual design
-- `app.js`: rubric data, scoring logic, and UI rendering
+- `rubric.js`: rubric definition, point values, caps, and tier bands
+- `app.js`: scoring logic and UI rendering
 
 ## Publish on GitHub Pages
 
@@ -20,16 +21,17 @@ GitHub Pages will serve `index.html` directly.
 
 ## Scoring model
 
-- Base product score is the sum of the seven rubric categories.
-- Penalties are summed and capped at `-15`.
-- Verified sustainability actions are summed and capped at `+5`.
+- Base product score is the sum of the weight field and categories 2-7.
+- Penalties are summed and capped at `-10`.
+- Verified sustainability actions are summed only when disclosure is `>= +2`, then capped at `+10`.
 - Final score = `base subtotal + penalties + disclosure + verified actions`.
+- The page also generates a BGG forum-format export with an optional `[thing=id]` game tag.
 - Impact tiers:
-  - `80+`: `LIGHT`
-  - `60–79`: `MODEST`
-  - `40–59`: `CONSIDERABLE`
-  - `Below 40`: `HEAVY`
+- `72+`: `LIGHT`
+- `52–71`: `MODEST`
+- `32–51`: `CONSIDERABLE`
+- `Below 32`: `HEAVY`
 
 ## Rubric note
 
-The workbook includes both a `0` disclosure option and a note saying silence should default to `-5`. The site exposes that note as an explicit control so you can choose whether to apply it.
+The current rubric hard-codes lack of meaningful disclosure as `-3` and blocks verified actions unless disclosure is at least `+2`.
