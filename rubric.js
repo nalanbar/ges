@@ -163,7 +163,7 @@ const rubric = {
       band: "Below 32",
       description: "Resource-intensive product. Ownership carries real environmental weight.",
       consumer: "This is an environmental investment. Earn it through long-term use, community sharing, or lighter choices elsewhere in your collection.",
-      publisher: "Your product is inherently material-intensive, so stewardship matters more, not less. Carbon reporting, recycled materials, and take-back programs are how you earn trust here.",
+      publisher: "Your product is inherently material-intensive, so stewardship and transparency matter. Carbon reporting, recycled materials, and take-back programs are how you earn trust here.",
     },
   ],
 };
